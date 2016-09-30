@@ -1,0 +1,8 @@
+{
+  "secrets": {
+    "twitter-consumer-secret": "my_twitter_secret"
+  },
+  "vars": {
+    "server-name": "myapp.com"
+  }
+}

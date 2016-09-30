@@ -1,0 +1,26 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: config-secret-test
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        environment: test
+    spec:
+      containers:
+        - name: config-secret-test
+          image: gcr.io/google_containers/busybox
+          command: [ "/bin/sh", "-c", "echo $(SERVER_NAME) $(TWITTER_CONSUMER_KEY)" ]
+          env:
+            - name: SERVER_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: env.vars.config
+                  key: server-name
+            - name: TWITTER_CONSUMER_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: secret.vars.config
+                  key: twitter-consumer-key
